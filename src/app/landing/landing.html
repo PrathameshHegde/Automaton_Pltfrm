@@ -1,26 +1,105 @@
-<nav class="flex items-center px-12 py-5">
+<div class="landing-page">
+  <header class="site-header">
+    <a class="wordmark" routerLink="/" aria-label="AutoAI home">
+      <span class="wordmark-icon" aria-hidden="true">A</span>
+      <span>Auto<span class="wordmark-accent">AI</span></span>
+    </a>
 
-    <!-- Logo -->
-    <img
-        src="/AutoAILogo.png"
-        alt="AutoAI Logo"
-        class="w-80 h-auto"
-    />
-    
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How it works</a>
+    </nav>
 
-    <!-- Menu -->
-    <div class="flex items-center gap-12 ml-16">
-        <a href="#" class="text-2xl font-size-500 font-inter hover:font-semibold">
-            HOME
-        </a>
-
-        <a href="#" class="text-2xl font-inter hover:font-bold">
-            SERVICES
-        </a>
-
-        <a href="#" class="text-2xl font-inter hover:font-bold">
-            PRICING
-        </a>
+    <div class="header-actions">
+      <a class="header-login" routerLink="/login">Log in</a>
+      <a class="button button-small button-dark text-size-" routerLink="/register">Get started <span aria-hidden="true">↗</span></a>
     </div>
+  </header>
 
-</nav>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> MAKE ROOM FOR WHAT MATTERS</div>
+        <h1>Less busywork.<br /><span>More brilliant work.</span></h1>
+        <p class="hero-description">
+          Bring your everyday workflows together and let intelligent automation handle the repetitive stuff.
+          You stay in control; AutoAI does the heavy lifting.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" routerLink="/register">Start Automating <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-proof">
+          <div class="avatar-stack" aria-hidden="true"><span>J</span><span>M</span><span>A</span><span>+</span></div>
+          <p class="text-4xl">Sit back ! AutoAI has it covered.</p>
+          <p>Your workflows keep moving while you focus on what matters.</p>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Illustration of an automated workflow dashboard">
+        <div class="visual-orbit orbit-one"></div>
+        <div class="visual-orbit orbit-two"></div>
+        <div class="dashboard-card">
+          <div class="dashboard-top">
+            <div class="dashboard-brand"><span class="mini-mark">A</span> Your workspace</div>
+            <span class="live-pill"><span></span> All systems go</span>
+          </div>
+          <div class="dashboard-heading">
+            <div><span class="dashboard-kicker">MONDAY, 9:41 AM</span><h2>Good morning, Alex</h2></div>
+            <span class="sparkle" aria-hidden="true">✳</span>
+          </div>
+          <div class="dashboard-stat">
+            <div class="stat-icon stat-purple" aria-hidden="true">✦</div>
+            <div><span>Time saved this week</span><strong>8h 24m</strong></div>
+            <span class="stat-growth">↑ 18%</span>
+          </div>
+          <div class="activity-heading"><strong>Recent Automations</strong><span>View all</span></div>
+          <div class="activity-row">
+            <span class="activity-icon activity-blue" aria-hidden="true">✉</span>
+            <span class="activity-name"><strong>Inbox tidy-up</strong><small>Sorted 12 new emails</small></span>
+            <span class="activity-check" aria-label="Complete">✓</span>
+          </div>
+          <div class="activity-row">
+            <span class="activity-icon activity-violet" aria-hidden="true">⌁</span>
+            <span class="activity-name"><strong>Meeting notes</strong><small>Summary sent to your team</small></span>
+            <span class="activity-check" aria-label="Complete">✓</span>
+          </div>
+          <div class="activity-row">
+            <span class="activity-icon activity-mint" aria-hidden="true">↗</span>
+            <span class="activity-name"><strong>Weekly report</strong><small>Preparing your latest update</small></span>
+            <span class="activity-running"><span></span>Running</span>
+          </div>
+        </div>
+        <div class="floating-note note-top"><span aria-hidden="true">✦</span><div><strong>It's taken care of</strong><small>One less thing on your list</small></div></div>
+        <div class="floating-note note-bottom"><span class="note-check" aria-hidden="true">✓</span><div><strong>Flow complete</strong><small>Your time is yours again</small></div></div>
+      </div>
+    </section>
+
+    <section class="feature-strip" id="features">
+      <div class="strip-intro"><span class="section-label">A BETTER WAY TO WORK</span><h2>Small automations.<br />Big breathing room.</h2></div>
+      <article class="feature-card">
+        <span class="feature-number">01</span><span class="feature-symbol symbol-blue" aria-hidden="true">↗</span>
+        <h3>Connect your tools</h3><p>Bring the apps you already use into one thoughtful workspace.</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-number">02</span><span class="feature-symbol symbol-violet" aria-hidden="true">✦</span>
+        <h3>Automate the repeatable</h3><p>Set up helpful workflows for the tasks that keep coming back.</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-number">03</span><span class="feature-symbol symbol-mint" aria-hidden="true">⌁</span>
+        <h3>Keep your focus</h3><p>Spend less time switching gears and more time doing your best work.</p>
+      </article>
+    </section>
+
+    <section class="closing-cta" id="how-it-works">
+      <div><span class="section-label">YOUR NEXT GOOD IDEA IS WAITING</span><h2>Make space for it.</h2></div>
+      <a class="button button-light" routerLink="/register">Create your free account <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="wordmark footer-wordmark" routerLink="/"><span class="wordmark-icon" aria-hidden="true">A</span><span>Auto<span class="wordmark-accent">AI</span></span></a>
+    <p>Automate Everything. Make room for more.</p>
+    <a routerLink="/login">Already have an account? Log in</a>
+  </footer>
+</div>
