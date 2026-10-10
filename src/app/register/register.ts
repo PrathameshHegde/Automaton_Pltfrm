@@ -10,8 +10,9 @@ import { RouterLink } from '@angular/router';
 export class Register {
   passwordVisible = false;
 
-  togglePasswordVisibility(): void {
+  togglePasswordVisibility(input: HTMLInputElement): void {
     this.passwordVisible = !this.passwordVisible;
+    input.type = this.passwordVisible ? 'text' : 'password';
   }
 
   preventSubmit(event: SubmitEvent): void {

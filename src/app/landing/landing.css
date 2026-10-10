@@ -7,7 +7,9 @@
   --muted: #53647a;
   --blue: #5149d8;
   color: var(--ink);
-  background: lemonchiffon(#f5f6ff(50%), #f5f6ff 50%, #f5f6ff00 50%);
+  background:
+    radial-gradient(circle at 8% 8%, #e8efff 0, #e8efff00 24%),
+    linear-gradient(180deg, #fbfcff 0%, #f5f7f4 100%);
   font-family: "Segoe UI Variable", Aptos, "Segoe UI", sans-serif;
   overflow: hidden;
 }
@@ -19,6 +21,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  z-index: 2;
 }
 
 .wordmark {
@@ -135,6 +139,15 @@
     radial-gradient(ellipse at 4% 100%, #e8e4ff 0, #e8e4ff00 47%),
     #eeefff;
   box-shadow: 0 22px 65px #25294c0b;
+}
+
+.hero::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  content: "";
+  box-shadow: inset 0 1px #ffffffaa;
 }
 
 .hero-copy {
@@ -653,6 +666,14 @@
   color: #5c6b7f;
   font-size: 16px;
   line-height: 1.65;
+}
+
+.feature-card h3,
+.feature-card p,
+.feature-number,
+.feature-symbol {
+  position: relative;
+  z-index: 1;
 }
 
 .closing-cta {
