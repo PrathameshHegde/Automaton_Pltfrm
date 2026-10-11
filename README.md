@@ -44,6 +44,22 @@ To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use th
 ng test
 ```
 
+## Spring Boot backend
+
+The Spring Boot API is in `backend/`. It uses PostgreSQL; configure the connection with
+`DB_URL`, `DB_USERNAME`, and `DB_PASSWORD` environment variables rather than committing
+credentials. Defaults target a local `ai_platform` database.
+
+In PowerShell, set the variables and run the backend from its directory:
+
+```powershell
+$env:DB_PASSWORD = "<your-local-database-password>"
+cd backend
+.\mvnw.cmd spring-boot:run
+```
+
+To run the backend tests, use `.\mvnw.cmd test` from `backend/`.
+
 ## Running end-to-end tests
 
 For end-to-end (e2e) testing, run:
