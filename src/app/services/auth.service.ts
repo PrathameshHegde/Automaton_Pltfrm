@@ -35,4 +35,13 @@ export class AuthService {
       }
     );
   }
+
+  me(): Observable<{ email: string }> {
+    return this.http.get<{ email: string }>(
+      `${this.apiUrl}/me`,
+      {
+        withCredentials: true
+      }
+    );
+  }
 }
