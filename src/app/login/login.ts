@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -61,10 +60,7 @@ export class Login {
     )
     .subscribe({
       next: () => {
-        this.message = 'Login successful!';
-
-        // Add dashboard navigation after authentication
-        // and session management are implemented.
+        this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {
         if (error.status === 401) {
