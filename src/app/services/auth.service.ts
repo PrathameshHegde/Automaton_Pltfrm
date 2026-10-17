@@ -6,9 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-
   private http = inject(HttpClient);
-
   private apiUrl = 'http://localhost:8080/api/auth';
 
   login(credentials: {
@@ -25,21 +23,19 @@ export class AuthService {
     );
   }
 
+  me(): Observable<{ email: string }> {
+    return this.http.get<{ email: string }>(
+      `${this.apiUrl}/me`,
+      { withCredentials: true }
+    );
+  }
+
   logout(): Observable<string> {
     return this.http.post(
       `${this.apiUrl}/logout`,
       {},
       {
         responseType: 'text',
-        withCredentials: true
-      }
-    );
-  }
-
-  me(): Observable<{ email: string }> {
-    return this.http.get<{ email: string }>(
-      `${this.apiUrl}/me`,
-      {
         withCredentials: true
       }
     );

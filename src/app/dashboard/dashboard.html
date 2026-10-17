@@ -1,65 +1,310 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { finalize } from 'rxjs';
+<div class="app-shell">
 
-@Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  template: `
-    <main class="dashboard">
-      <header class="dashboard-header">
-        <div class="brand">
-          <span class="brand-icon">A</span>
-          <span>Auto<span class="brand-accent">AI</span></span>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a class="brand" routerLink="/">
+      <span class="brand-mark">A</span>
+      <span class="brand-name">Auto<span>AI</span></span>
+    </a>
+
+    <div class="workspace-label">WORKSPACE</div>
+
+    <nav class="side-nav" aria-label="Main navigation">
+      <a class="nav-item active" routerLink="/dashboard">
+        <span class="nav-icon">▦</span>
+        <span>Overview</span>
+      </a>
+
+      <button class="nav-item" type="button"
+        (click)="openFeature('Automations')">
+        <span class="nav-icon">⚡</span>
+        <span>Automations</span>
+        <span class="nav-count">0</span>
+      </button>
+
+      <button class="nav-item" type="button"
+        (click)="openFeature('Integrations')">
+        <span class="nav-icon">⌘</span>
+        <span>Integrations</span>
+      </button>
+
+      <button class="nav-item" type="button"
+        (click)="openFeature('Activity')">
+        <span class="nav-icon">◷</span>
+        <span>Activity</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="help-card">
+        <div class="help-icon">✦</div>
+        <strong>Make work flow.</strong>
+        <p>Your next great automation starts with an idea.</p>
+        <button type="button" (click)="createAutomation()">
+          Get started <span>→</span>
+        </button>
+      </div>
+
+      <div class="sidebar-user">
+        <div class="user-avatar">{{ userInitial }}</div>
+        <div class="sidebar-user-info">
+          <strong>Your account</strong>
+          <span>{{ userEmail || 'Loading...' }}</span>
+        </div>
+        <button class="sidebar-logout" type="button"
+          aria-label="Log out" (click)="logout()"
+          [disabled]="isLoggingOut">
+          ↗
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main-content">
+
+    <header class="topbar">
+      <div class="breadcrumb">
+        Workspace <span>/</span> <strong>Overview</strong>
+      </div>
+
+      <div class="topbar-actions">
+        <span class="connection-status">
+          <span class="status-dot"></span>
+          Workspace
+        </span>
+
+        <button class="topbar-logout" type="button"
+          (click)="logout()" [disabled]="isLoggingOut">
+          {{ isLoggingOut ? 'Signing out...' : 'Log out' }}
+        </button>
+      </div>
+    </header>
+
+    <div class="page-content">
+
+      <!-- Welcome -->
+      <section class="welcome-row">
+        <div>
+          <div class="eyebrow">
+            <span>✦</span> YOUR AUTOMATION SPACE
+          </div>
+          <h1>Good to have you here<span class="purple-dot">.</span></h1>
+          <p class="page-subtitle">
+            Your ideas deserve less busywork. Let's make things happen.
+          </p>
         </div>
 
-        <button
-          type="button"
-          class="logout-button"
-          (click)="logout()"
-          [disabled]="isLoggingOut"
-        >
-          {{ isLoggingOut ? 'Logging out...' : 'Logout' }}
+        <button class="primary-button" type="button"
+          (click)="createAutomation()">
+          <span>＋</span> Create automation
         </button>
-      </header>
+      </section>
 
-      <section class="welcome-section">
-        <p class="eyebrow">YOUR AUTOMATION WORKSPACE</p>
-        <h1>Welcome to AutoAI<span class="brand-accent">.</span></h1>
-        <p class="subtitle">
-          Automate repetitive tasks and focus on what matters.
-        </p>
+      <!-- Hero -->
+      <section class="hero-card">
+        <div class="hero-copy">
+          <span class="hero-badge">
+            <span class="sparkle">✦</span> MEET YOUR NEW WORKFLOW
+          </span>
 
-        <div class="user-card">
-          <div class="avatar">{{ userEmail.charAt(0).toUpperCase() || 'U' }}</div>
-          <div>
-            <p class="user-label">Logged in as</p>
-            <p class="user-email">{{ userEmail || 'Loading account...' }}</p>
+          <h2>Less busywork.<br />More <span>brilliant work.</span></h2>
+
+          <p>
+            Connect your tools, automate the repetitive stuff,
+            and give your best ideas room to grow.
+          </p>
+
+          <button class="hero-button" type="button"
+            (click)="createAutomation()">
+            Explore automation <span>→</span>
+          </button>
+        </div>
+
+        <!-- Built-in workflow illustration -->
+        <div class="hero-visual" aria-label="Illustration of connected workflow apps">
+          <div class="visual-orbit orbit-one"></div>
+          <div class="visual-orbit orbit-two"></div>
+
+          <div class="visual-label">YOUR WORKFLOW</div>
+
+          <div class="flow-node node-mail">
+            <span class="node-symbol mail-symbol">✉</span>
+          </div>
+
+          <div class="flow-node node-ai">
+            <span class="ai-spark">✦</span>
+            <span class="ai-caption">AI</span>
+          </div>
+
+          <div class="flow-node node-chart">
+            <span class="chart-symbol">▥</span>
+          </div>
+
+          <div class="flow-node node-check">
+            <span>✓</span>
+          </div>
+
+          <svg class="flow-lines" viewBox="0 0 380 280"
+            fill="none" aria-hidden="true">
+            <path d="M70 86 C115 86 116 135 161 135"
+              stroke="#a9a0ff" stroke-width="2" stroke-dasharray="5 6"/>
+            <path d="M217 135 C260 135 264 86 309 86"
+              stroke="#a9a0ff" stroke-width="2" stroke-dasharray="5 6"/>
+            <path d="M190 166 C190 207 260 212 282 228"
+              stroke="#a9a0ff" stroke-width="2" stroke-dasharray="5 6"/>
+            <circle cx="116" cy="105" r="4" fill="#8b7bff"/>
+            <circle cx="266" cy="108" r="4" fill="#8b7bff"/>
+            <circle cx="238" cy="207" r="4" fill="#8b7bff"/>
+          </svg>
+
+          <div class="visual-caption">
+            <span class="caption-check">✓</span>
+            <span>
+              <strong>Workflow connected</strong>
+              <small>Imagine what you could automate</small>
+            </span>
           </div>
         </div>
       </section>
 
-      <section class="dashboard-grid">
-        <article class="feature-card">
-          <div class="feature-icon">⚡</div>
-          <h2>Automations</h2>
-          <p>Create workflows that handle repetitive tasks automatically.</p>
-          <span class="status">Coming soon</span>
+      <!-- Statistics -->
+      <section class="section-block">
+        <div class="section-heading">
+          <div>
+            <h2>Your workspace</h2>
+            <p>A quick look at your automation journey.</p>
+          </div>
+          <span class="section-tag">OVERVIEW</span>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-icon icon-purple">⚡</span>
+              <span class="stat-label">WORKFLOWS</span>
+            </div>
+            <div class="stat-number">0</div>
+            <p>Automations created</p>
+            <div class="stat-footer">
+              <span class="mini-dot purple-dot-bg"></span>
+              Ready for your first workflow
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-icon icon-blue">⌘</span>
+              <span class="stat-label">INTEGRATIONS</span>
+            </div>
+            <div class="stat-number">0</div>
+            <p>Apps connected</p>
+            <div class="stat-footer">
+              Connect the tools you use
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-icon icon-orange">◷</span>
+              <span class="stat-label">TIME SAVED</span>
+            </div>
+            <div class="stat-number">0<span class="stat-unit">h</span></div>
+            <p>Time returned to you</p>
+            <div class="stat-footer">
+              Every minute can add up
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Lower content -->
+      <section class="lower-grid">
+
+        <article class="panel workflow-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Start with a template</h2>
+              <p>Give your first workflow a head start.</p>
+            </div>
+            <span class="template-spark">✦</span>
+          </div>
+
+          <button class="template-row" type="button"
+            (click)="openFeature('Email automation')">
+            <span class="template-icon template-purple">✉</span>
+            <span class="template-text">
+              <strong>Email automation</strong>
+              <small>Organize repetitive email tasks</small>
+            </span>
+            <span class="template-arrow">→</span>
+          </button>
+
+          <button class="template-row" type="button"
+            (click)="openFeature('Data synchronization')">
+            <span class="template-icon template-blue">⇄</span>
+            <span class="template-text">
+              <strong>Sync your data</strong>
+              <small>Keep information in sync across apps</small>
+            </span>
+            <span class="template-arrow">→</span>
+          </button>
+
+          <button class="template-row" type="button"
+            (click)="openFeature('AI assistant')">
+            <span class="template-icon template-orange">✧</span>
+            <span class="template-text">
+              <strong>AI-powered assistant</strong>
+              <small>Explore ideas for AI workflows</small>
+            </span>
+            <span class="template-arrow">→</span>
+          </button>
+
+          <button class="text-link" type="button"
+            (click)="createAutomation()">
+            Browse all templates <span>→</span>
+          </button>
         </article>
 
-        <article class="feature-card">
-          <div class="feature-icon">🔗</div>
-          <h2>Integrations</h2>
-          <p>Connect your favorite apps and services in one workspace.</p>
-          <span class="status">Coming soon</span>
-        </article>
+        <article class="panel activity-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Recent activity</h2>
+              <p>Updates from your workspace.</p>
+            </div>
+            <span class="activity-icon">◷</span>
+          </div>
 
-        <article class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h2>Activity</h2>
-          <p>Monitor your workflow activity and automation performance.</p>
-          <span class="status">Coming soon</span>
+          <div class="empty-activity">
+            <div class="empty-illustration">
+              <span class="empty-clock">◷</span>
+              <span class="empty-star">✦</span>
+            </div>
+            <h3>Your story starts here</h3>
+            <p>
+              Once you start building workflows,
+              their activity will appear here.
+            </p>
+            <button type="button" (click)="createAutomation()">
+              Create your first workflow
+            </button>
+          </div>
         </article>
       </section>
-      </main>
+
+      @if (notice) {
+        <div class="notice" role="status">
+          <span>✦</span>
+          {{ notice }}
+          <button type="button" aria-label="Dismiss message"
+            (click)="notice = ''">×</button>
+        </div>
+      }
+
+      <footer class="page-footer">
+        <span>© 2026 AutoAI</span>
+        <span>Built for better workflows <span class="footer-heart">✦</span></span>
+      </footer>
+    </div>
+  </main>
+</div>
